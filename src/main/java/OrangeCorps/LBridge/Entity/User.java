@@ -50,8 +50,9 @@ public class User {
         coupleId = userDTO.getCoupleId();
     }
 
-    public User updateCoupleId(String newCoupleId) {
-        return new User(this.userId, this.user_name, this.country, this.tel, this.birth, newCoupleId);
+    public void updateCoupleId(String newCoupleId) {
+        this.coupleId = newCoupleId;
+        return;
     }
 
 }

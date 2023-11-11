@@ -50,8 +50,8 @@ public class UserService {
     public void registCouple(String userId,String coupleId){
         Optional<User> optionalUser = userRepository.findById(userId);
         User existingUser = optionalUser.get();
-        User updatedUser = existingUser.updateCoupleId(coupleId);
+        existingUser.updateCoupleId(coupleId);
 
-        userRepository.save(updatedUser);
+        userRepository.save(existingUser);
     }
 }
