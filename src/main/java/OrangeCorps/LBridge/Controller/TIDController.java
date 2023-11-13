@@ -47,9 +47,9 @@ public class TIDController {
     }
 
     // TID 답안 확인
-    @GetMapping("/{answerId}")
-    public ResponseEntity<TIDAnswer> getAnswer(@PathVariable Long answerId) {
-        TIDAnswer answer = tidService.getAnswer(answerId);
+    @GetMapping("/{questionId}")
+    public ResponseEntity<TIDAnswer> getAnswer(@PathVariable Long questionId) {
+        TIDAnswer answer = tidService.getAnswer(questionId);
         return new ResponseEntity<>(answer, HttpStatus.OK);
     }
 }

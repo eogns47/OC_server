@@ -2,10 +2,8 @@ package OrangeCorps.LBridge.Repository;
 
 import OrangeCorps.LBridge.Entity.TIDQuestion;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
+@Repository
 public interface TIDQuestionRepository extends JpaRepository<TIDQuestion, Long> {
-    // 질문 시간순으로 모두 출력
-    List<TIDQuestion> findAllByOrderByTimeStampDesc();
 }

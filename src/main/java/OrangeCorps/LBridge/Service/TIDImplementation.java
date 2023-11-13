@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class TIDImplementation {
+public class TIDImplementation implements TidService {
     @Autowired
     private TIDQuestionRepository tidQuestionRepository;
 
@@ -19,7 +19,7 @@ public class TIDImplementation {
     private TIDAnswerRepository tidAnswerRepository;
 
     public List<TIDQuestion> getAllQuestions() {
-        return tidQuestionRepository.findAllByOrderByTimeStampDesc();
+        return tidQuestionRepository.findAll();
     }
 
     public void createAnswer(Long questionId, String answer, String token) {
@@ -37,3 +37,4 @@ public class TIDImplementation {
         return tidAnswerRepository.findById(answerId).orElse(null);
     }
 }
+
