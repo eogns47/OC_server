@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface TIDAnswerRepository extends JpaRepository<TIDAnswer, Long> {
-    // 응답 questionId로 검색
-    List<TIDAnswer> findByQuestionId(Long questionId);
+    // 응답 datestamp + userid1 + userid2로 combined key로 조회.
+    List<TIDAnswer> findByCombinedKey(String combinedKey);
 }

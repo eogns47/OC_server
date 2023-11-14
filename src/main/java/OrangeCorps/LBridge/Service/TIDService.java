@@ -6,8 +6,8 @@ import OrangeCorps.LBridge.Entity.TIDQuestion;
 import java.util.List;
 
 
-public interface TidService {
+public interface TIDService {
     List<TIDQuestion> getAllQuestions();
-    void createAnswer(Long questionId, String answer, String token);
-    TIDAnswer getAnswer(Long answerId);
+    void createAnswer(Long answerId, Long questionId, String answer, String token, String userId, String coupleId);
+    List<TIDAnswer> getAnswer(String combinedkey);
 }

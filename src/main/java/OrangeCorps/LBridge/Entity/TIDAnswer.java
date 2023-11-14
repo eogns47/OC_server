@@ -13,37 +13,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class TIDAnswer {
-    public Long getAnswerId() {
-        return answerId;
-    }
-
-    public void setAnswerId(Long answerId) {
-        this.answerId = answerId;
-    }
-
-    public Long getQuestionId() {
-        return questionId;
-    }
-
-    public void setQuestionId(Long questionId) {
-        this.questionId = questionId;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,4 +20,20 @@ public class TIDAnswer {
     private Long questionId;
     private String answer;
     private LocalDateTime timestamp;
+    private String userId;
+    private String coupleId;
+    private String combinedKey;
+
+    public TIDAnswer() {
+        this.timestamp = LocalDateTime.now();
+        initCombinedKey();
+    }
+
+    private void initCombinedKey() {
+        String year = String.valueOf(timestamp.getYear());
+        String month = String.format("%02d", timestamp.getMonthValue());
+        String day = String.format("%02d", timestamp.getDayOfMonth());
+
+        this.combinedKey = year + "_" + month + "_" + day + "_" + userId + "_" + coupleId;
+    }
 }

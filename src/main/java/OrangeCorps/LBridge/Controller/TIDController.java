@@ -2,7 +2,7 @@ package OrangeCorps.LBridge.Controller;
 
 import OrangeCorps.LBridge.Entity.TIDAnswer;
 import OrangeCorps.LBridge.Entity.TIDQuestion;
-import OrangeCorps.LBridge.Service.TidService;
+import OrangeCorps.LBridge.Service.TIDService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import java.util.Random;
 public class TIDController {
 
     @Autowired
-    private TidService tidService;
+    private TIDService tidService;
 
     // TID 질문 불러오기
     @GetMapping
@@ -39,17 +39,20 @@ public class TIDController {
     // TID 답안제출
     @PostMapping("/{questionId}")
     public ResponseEntity<String> createAnswer(
+            @RequestParam Long answerId,
             @PathVariable Long questionId,
             @RequestBody Map<String, String> answerData,
-            @RequestHeader(name = "Authorization") String token) {
-        tidService.createAnswer(questionId, answerData.get("answer"), token);
+            @RequestHeader(name = "Authorization") String token,
+            @RequestParam String userId,
+            @RequestParam String coupleId) {
+        tidService.createAnswer(answerId, questionId, answerData.get("answer"), token, userId, coupleId);
         return new ResponseEntity<>("POST TID answer to question success", HttpStatus.CREATED);
     }
 
     // TID 답안 확인
     @GetMapping("/{questionId}")
-    public ResponseEntity<TIDAnswer> getAnswer(@PathVariable Long questionId) {
-        TIDAnswer answer = tidService.getAnswer(questionId);
+    public ResponseEntity<List<TIDAnswer>> getAnswer(@RequestParam String combinedKey) {
+        List<TIDAnswer> answer = tidService.getAnswer(combinedKey);
         return new ResponseEntity<>(answer, HttpStatus.OK);
     }
 }
