@@ -3,12 +3,8 @@ package OrangeCorps.LBridge.Service.News;
 import static OrangeCorps.LBridge.Config.My_API_KEY_IS;
 import static OrangeCorps.LBridge.Config.QUERY_IS;
 
-import OrangeCorps.LBridge.DTO.NewsApiResponse;
-import OrangeCorps.LBridge.DTO.NewsDTO;
+import OrangeCorps.LBridge.Domain.News.NewsDTO;
 import OrangeCorps.LBridge.Service.CoupleService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

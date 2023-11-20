@@ -1,20 +1,14 @@
 package OrangeCorps.LBridge.Service.News;
 
-import OrangeCorps.LBridge.DTO.NewsApiResponse;
-import OrangeCorps.LBridge.DTO.NewsDTO;
-import java.util.List;
-import lombok.NoArgsConstructor;
+import OrangeCorps.LBridge.Domain.News.NewsApiResponseDTO;
+import OrangeCorps.LBridge.Domain.News.NewsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
 public class GetNYTimesArticles implements GetArticles {
-    private NewsApiResponse newsApiResponse;
+    private NewsApiResponseDTO newsApiResponseDTO;
 
     private Integer idx;
     @Autowired
@@ -30,7 +24,7 @@ public class GetNYTimesArticles implements GetArticles {
     }
 
     public void setNewsAPIResponse(String APIUrl){
-        this.newsApiResponse = restTemplate.getForObject(APIUrl, NewsApiResponse.class);
+        this.newsApiResponseDTO = restTemplate.getForObject(APIUrl, NewsApiResponseDTO.class);
     }
 
     private void setIdx(Integer idx){
@@ -51,22 +45,22 @@ public class GetNYTimesArticles implements GetArticles {
 
     @Override
     public String getArticleUrl() {
-        return newsApiResponse.getResponse().getDocs().get(idx).getUrl();
+        return newsApiResponseDTO.getResponse().getDocs().get(idx).getUrl();
     }
 
 
     @Override
     public String getArticleHeadLine() {
-        return newsApiResponse.getResponse().getDocs().get(idx).getHeadline().getMain();
+        return newsApiResponseDTO.getResponse().getDocs().get(idx).getHeadline().getMain();
     }
 
     @Override
     public String getArticlePubDate() {
-        return newsApiResponse.getResponse().getDocs().get(idx).getPubDate();
+        return newsApiResponseDTO.getResponse().getDocs().get(idx).getPubDate();
     }
 
     @Override
     public String getArticleSummary() {
-        return newsApiResponse.getResponse().getDocs().get(idx).getSummary();
+        return newsApiResponseDTO.getResponse().getDocs().get(idx).getSummary();
     }
 }

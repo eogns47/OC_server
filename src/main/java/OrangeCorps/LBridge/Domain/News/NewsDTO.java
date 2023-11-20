@@ -1,4 +1,4 @@
-package OrangeCorps.LBridge.DTO;
+package OrangeCorps.LBridge.Domain.News;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

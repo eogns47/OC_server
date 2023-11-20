@@ -1,7 +1,7 @@
 package OrangeCorps.LBridge.Service;
 
-import OrangeCorps.LBridge.Entity.TIDAnswer;
-import OrangeCorps.LBridge.Entity.TIDQuestion;
+import OrangeCorps.LBridge.Domain.TID.TIDAnswer;
+import OrangeCorps.LBridge.Domain.TID.TIDQuestion;
 
 import java.util.List;
 

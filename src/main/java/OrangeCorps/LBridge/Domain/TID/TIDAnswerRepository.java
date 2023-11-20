@@ -1,6 +1,6 @@
-package OrangeCorps.LBridge.Repository;
+package OrangeCorps.LBridge.Domain.TID;
 
-import OrangeCorps.LBridge.Entity.TIDAnswer;
+import OrangeCorps.LBridge.Domain.TID.TIDAnswer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

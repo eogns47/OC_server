@@ -1,4 +1,4 @@
-package OrangeCorps.LBridge.DTO;
+package OrangeCorps.LBridge.Domain.News;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -6,7 +6,7 @@ import java.util.List;
 import lombok.Getter;
 
 @Getter
-public class NewsApiResponse {
+public class NewsApiResponseDTO {
 
     @JsonProperty("response")
     private NewsApiResponseBody response;

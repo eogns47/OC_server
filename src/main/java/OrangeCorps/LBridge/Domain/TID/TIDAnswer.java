@@ -1,4 +1,4 @@
-package OrangeCorps.LBridge.Entity;
+package OrangeCorps.LBridge.Domain.TID;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

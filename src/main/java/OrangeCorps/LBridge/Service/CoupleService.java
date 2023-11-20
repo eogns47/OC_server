@@ -1,7 +1,7 @@
 package OrangeCorps.LBridge.Service;
 
-import OrangeCorps.LBridge.Entity.User;
-import OrangeCorps.LBridge.Repository.UserRepository;
+import OrangeCorps.LBridge.Domain.User.User;
+import OrangeCorps.LBridge.Domain.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

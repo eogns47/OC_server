@@ -1,7 +1,7 @@
 package OrangeCorps.LBridge.Controller;
 
-import OrangeCorps.LBridge.Entity.TIDAnswer;
-import OrangeCorps.LBridge.Entity.TIDQuestion;
+import OrangeCorps.LBridge.Domain.TID.TIDAnswer;
+import OrangeCorps.LBridge.Domain.TID.TIDQuestion;
 import OrangeCorps.LBridge.Service.TIDService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
