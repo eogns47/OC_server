@@ -1,8 +1,8 @@
 package OrangeCorps.LBridge.Service;
 
-import OrangeCorps.LBridge.Entity.User;
-import OrangeCorps.LBridge.Repository.UserRepository;
-import OrangeCorps.LBridge.Validator.UserValidator;
+import OrangeCorps.LBridge.Domain.User.User;
+import OrangeCorps.LBridge.Domain.User.UserRepository;
+import OrangeCorps.LBridge.Service.Validator.UserValidator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

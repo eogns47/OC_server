@@ -1,6 +1,6 @@
-package OrangeCorps.LBridge.Validator;
+package OrangeCorps.LBridge.Service.Validator;
 
-import OrangeCorps.LBridge.Entity.User;
+import OrangeCorps.LBridge.Domain.User.User;
 import java.util.List;
 import org.springframework.stereotype.Component;
 

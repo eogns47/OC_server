@@ -1,7 +1,6 @@
 package OrangeCorps.LBridge.Service.News;
 
-import OrangeCorps.LBridge.DTO.NewsApiResponse;
-import OrangeCorps.LBridge.DTO.NewsDTO;
+import OrangeCorps.LBridge.Domain.News.NewsDTO;
 
 public interface GetArticles {
 

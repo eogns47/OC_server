@@ -1,7 +1,7 @@
 package OrangeCorps.LBridge.Controller;
 
 
-import OrangeCorps.LBridge.DTO.NewsDTO;
+import OrangeCorps.LBridge.Domain.News.NewsDTO;
 import OrangeCorps.LBridge.Service.News.NewsService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

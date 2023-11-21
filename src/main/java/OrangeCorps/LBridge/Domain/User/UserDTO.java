@@ -1,4 +1,4 @@
-package OrangeCorps.LBridge.DTO;
+package OrangeCorps.LBridge.Domain.User;
 
 import java.time.LocalDate;
 import lombok.Getter;

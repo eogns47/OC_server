@@ -3,19 +3,16 @@ package OrangeCorps.LBridge;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.springframework.test.util.AssertionErrors.assertNotNull;
 
-import OrangeCorps.LBridge.DTO.UserDTO;
-import OrangeCorps.LBridge.Entity.User;
-import OrangeCorps.LBridge.Repository.UserRepository;
+import OrangeCorps.LBridge.Domain.User.UserDTO;
+import OrangeCorps.LBridge.Domain.User.User;
+import OrangeCorps.LBridge.Domain.User.UserRepository;
 import OrangeCorps.LBridge.Service.UserService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.jpa.JpaSystemException;
 
 
