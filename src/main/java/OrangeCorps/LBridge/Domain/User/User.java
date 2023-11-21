@@ -20,10 +20,10 @@ import lombok.NoArgsConstructor;
 public class User {
     @Id
     @Column(length=128)
-    private String userId;
+    private String uuid;
 
     @Column(length=128)
-    private String user_name;
+    private String name;
 
     @Column(length=128)
     private String country;
@@ -38,8 +38,8 @@ public class User {
     private String coupleId;
 
     public User(UserDTO userDTO){
-        userId = userDTO.getUserId();
-        user_name = userDTO.getUser_name();
+        uuid = userDTO.getUuid();
+        name = userDTO.getName();
         country = userDTO.getCountry();
         tel = userDTO.getTel();
         birth = userDTO.getBirth();
