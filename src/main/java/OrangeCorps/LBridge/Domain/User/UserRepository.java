@@ -1,5 +1,6 @@
 package OrangeCorps.LBridge.Domain.User;
 
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -7,6 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, String>{
 
     //값이 없을 경우 null 반환
-    User findByUserId(String userId);
+    Optional<User> findByUserId(String userId);
 }
 

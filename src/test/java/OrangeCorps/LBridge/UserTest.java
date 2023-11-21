@@ -70,7 +70,8 @@ public class UserTest {
         userService.linkCouple("test1","test2");
 
 
-        assertEquals(userRepository.findByUserId("test1").getCoupleId(),user2.getUserId());
+
+        assertEquals(userRepository.findByUserId("test1").get().getCoupleId(),user2.getUserId());
     }
 
     @Test

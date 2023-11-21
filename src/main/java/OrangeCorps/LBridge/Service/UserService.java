@@ -6,14 +6,16 @@ import OrangeCorps.LBridge.Service.Validator.UserValidator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import static OrangeCorps.LBridge.Config.*;
+import static OrangeCorps.LBridge.Config.Config.*;
 
 @Service
+@Slf4j
 public class UserService {
     @Autowired
     UserRepository userRepository;
@@ -34,16 +36,23 @@ public class UserService {
 
     public List<User> findBothUser(String userId, String coupleId) {
         List<User> users = new ArrayList<>();
-        User userById = userRepository.findById(userId).orElse(null);
-        User userByCoupleId = userRepository.findByUserId(coupleId);
+        Optional<User> userById = userRepository.findById(userId);
+        Optional<User> userByCoupleId = userRepository.findByUserId(coupleId);
 
-        if (userById != null) {
-            users.add(userById);
+        if(userById.isPresent()){
+            users.add(userById.get());
+        }
+        else{
+            log.error("존재하지 않는 유저입니다.");
         }
 
-        if (userByCoupleId != null) {
-            users.add(userByCoupleId);
+        if(userByCoupleId.isPresent()){
+            users.add(userByCoupleId.get());
         }
+        else{
+            log.error("존재하지 않는 유저입니다.");
+        }
+
         return users;
     }
 

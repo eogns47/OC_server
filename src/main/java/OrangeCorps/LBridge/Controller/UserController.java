@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import static OrangeCorps.LBridge.Config.*;
+import static OrangeCorps.LBridge.Config.Config.*;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -28,8 +28,8 @@ public class UserController {
         try {
             User user = convertToUserEntity(userDTO);
             userRepository.save(user);
-            log.info(USER_SAVE_SUCCESS, user.getUser_name());
-            return ResponseEntity.ok(String.format(USER_SAVE_SUCCESS, user.getUser_name()));
+            log.info(USER_SAVE_SUCCESS, user.getName());
+            return ResponseEntity.ok(String.format(USER_SAVE_SUCCESS, user.getName()));
         } catch (Exception e) {
             log.error(USER_SAVE_ERROR, e);
             return new ResponseEntity<>(USER_SAVE_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);

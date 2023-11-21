@@ -9,8 +9,8 @@ import lombok.Setter;
 @Getter
 @RequiredArgsConstructor
 public class UserDTO {
-    private String userId;
-    private String user_name;
+    private String uuid;
+    private String name;
     private String country;
     private String tel;
     private LocalDate birth;
