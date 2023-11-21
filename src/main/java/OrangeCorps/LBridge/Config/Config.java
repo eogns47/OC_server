@@ -1,4 +1,4 @@
-package OrangeCorps.LBridge;
+package OrangeCorps.LBridge.Config;
 
 public class Config {
     public final static String USER_SAVE_SUCCESS = "User saved successfully: {}";

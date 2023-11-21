@@ -2,6 +2,7 @@ package OrangeCorps.LBridge.Service;
 
 import OrangeCorps.LBridge.Domain.User.User;
 import OrangeCorps.LBridge.Domain.User.UserRepository;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,15 +12,19 @@ public class CoupleService {
     UserRepository userRepository;
 
     public String findCoupleOfUser(String userId){
-        User user = userRepository.findByUserId(userId);
-        if(user.getCoupleId() == null){
+        Optional<User> user = userRepository.findByUserId(userId);
 
+        if(user.isPresent()){
+            return user.get().getCoupleId();
         }
-        return user.getCoupleId();
+        else{
+            throw new NullPointerException();
+        }
     }
 
     public String findCountryOfCouple(String userId){
         String coupleId = findCoupleOfUser(userId);
-        return userRepository.findByUserId(coupleId).getCountry();
+        User coupleUser =userRepository.findByUserId(coupleId).get();
+        return coupleUser.getCountry();
     }
 }
