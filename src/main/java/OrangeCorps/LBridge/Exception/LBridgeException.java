@@ -15,5 +15,12 @@ public class LBridgeException {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 
+    @ExceptionHandler
+    public ResponseEntity<String> ExceptionHandler(IllegalArgumentException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+
+
 
 }

@@ -5,6 +5,7 @@ import OrangeCorps.LBridge.Domain.User.UserRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import static OrangeCorps.LBridge.Config.Config.*;
 
 @Service
 public class CoupleService {
@@ -18,7 +19,7 @@ public class CoupleService {
             return user.get().getCoupleId();
         }
         else{
-            throw new NullPointerException();
+            throw new IllegalArgumentException(NOT_FOUND_USER);
         }
     }
 
