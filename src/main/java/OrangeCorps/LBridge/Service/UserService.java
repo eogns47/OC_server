@@ -25,10 +25,9 @@ public class UserService {
     public ResponseEntity<String> linkCouple(String userId, String coupleId) {
 
         List<User> users = findBothUser(userId, coupleId);
-        boolean isBothExisted = userValidator.validateUserListLength(users,PAIR_OF_COUPLE);
 
-        if(!isBothExisted)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(NOT_FOUND_COUPLE_USER);
+        if(userValidator.validateUserListLength(users,PAIR_OF_COUPLE))
+            throw new NullPointerException(NOT_FOUND_USER);
 
         registCouple(userId,coupleId);
         return ResponseEntity.ok(COUPLE_LINK_SUCCESS);
@@ -43,14 +42,14 @@ public class UserService {
             users.add(userById.get());
         }
         else{
-            log.error("존재하지 않는 유저입니다.");
+            throw new NullPointerException(NOT_FOUND_USER);
         }
 
         if(userByCoupleId.isPresent()){
             users.add(userByCoupleId.get());
         }
         else{
-            log.error("존재하지 않는 유저입니다.");
+            throw new NullPointerException(NOT_FOUND_COUPLE_USER);
         }
 
         return users;
