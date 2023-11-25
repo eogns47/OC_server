@@ -1,9 +1,7 @@
 package OrangeCorps.LBridge.Service.News;
 
 import jakarta.annotation.PostConstruct;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -54,7 +52,6 @@ public class ScheduledApiCaller {
         }
     }
 
-    @PostConstruct
     private void callApi() {
         newsService.saveNews();
     }
