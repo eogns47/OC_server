@@ -81,4 +81,10 @@ public class UserService {
     private User convertToUserEntity(UserDTO userDTO) {
         return new User(userDTO);
     }
+
+    public String getCoupleIdByUuid(String userId){
+        Optional<String> coupleIdOptional = userRepository.findCoupleIdByUuid(userId);
+
+        return coupleIdOptional.orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_COUPLE_USER));
+    }
 }
