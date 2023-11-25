@@ -9,6 +9,7 @@ import OrangeCorps.LBridge.Domain.News.NewsRepository;
 import OrangeCorps.LBridge.Domain.User.User;
 import OrangeCorps.LBridge.Domain.User.UserRepository;
 import OrangeCorps.LBridge.Service.CoupleService;
+import OrangeCorps.LBridge.Service.UserService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -31,6 +32,9 @@ public class NewsService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
 
     @Value("${news.api.url}")
     private String apiUrl;
@@ -80,7 +84,7 @@ public class NewsService {
                         .url(newsDTO.getUrl())
                         .headLine(newsDTO.getHeadLine())
                         .summary(newsDTO.getSummary())
-                        .published_date(newsDTO.getPublished_date())
+                        .publishedDate(newsDTO.getPublishedDate())
                         .country(country)
                         .build();
 
@@ -96,6 +100,13 @@ public class NewsService {
                 .map(User::getCountry)
                 .distinct()
                 .collect(Collectors.toList());
+    }
+
+    public List<News> getLatestNewsByCountry(String userId) {
+        String coupleId = userService.getCoupleIdByUuid(userId);
+        String country= userService.findCountry(coupleId);
+
+        return newsRepository.findTop5ByCountryOrderByPublishedDateDesc(country);
     }
 
 }
