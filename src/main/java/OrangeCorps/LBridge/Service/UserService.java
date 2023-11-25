@@ -1,6 +1,7 @@
 package OrangeCorps.LBridge.Service;
 
 import OrangeCorps.LBridge.Domain.User.User;
+import OrangeCorps.LBridge.Domain.User.UserDTO;
 import OrangeCorps.LBridge.Domain.User.UserRepository;
 import OrangeCorps.LBridge.Service.Validator.UserValidator;
 import java.util.ArrayList;
@@ -22,34 +23,34 @@ public class UserService {
     @Autowired
     UserValidator userValidator;
 
-    public ResponseEntity<String> linkCouple(String userId, String coupleId) {
+    public void linkCouple(String userId, String coupleId) {
 
         List<User> users = findBothUser(userId, coupleId);
 
-        if(userValidator.validateUserListLength(users,PAIR_OF_COUPLE))
+        if(!userValidator.validateUserListLength(users,PAIR_OF_COUPLE))
             throw new NullPointerException(NOT_FOUND_USER);
 
         registCouple(userId,coupleId);
-        return ResponseEntity.ok(COUPLE_LINK_SUCCESS);
+        return;
     }
 
     public List<User> findBothUser(String userId, String coupleId) {
         List<User> users = new ArrayList<>();
         Optional<User> userById = userRepository.findById(userId);
-        Optional<User> userByCoupleId = userRepository.findByUserId(coupleId);
+        Optional<User> userByCoupleId = userRepository.findById(coupleId);
 
         if(userById.isPresent()){
             users.add(userById.get());
         }
         else{
-            throw new NullPointerException(NOT_FOUND_USER);
+            throw new IllegalArgumentException(NOT_FOUND_USER);
         }
 
         if(userByCoupleId.isPresent()){
             users.add(userByCoupleId.get());
         }
         else{
-            throw new NullPointerException(NOT_FOUND_COUPLE_USER);
+            throw new IllegalArgumentException(NOT_FOUND_COUPLE_USER);
         }
 
         return users;
@@ -61,5 +62,23 @@ public class UserService {
         existingUser.updateCoupleId(coupleId);
 
         userRepository.save(existingUser);
+    }
+
+    public String findCountry(String uuid){
+        Optional<User> optionalUser = userRepository.findByUuid(uuid);
+        if(optionalUser.isEmpty()){
+            throw new IllegalArgumentException(NOT_FOUND_USER);
+        }
+        return optionalUser.get().getCountry();
+    }
+
+    public String saveUser(UserDTO userDTO){
+        User user = convertToUserEntity(userDTO);
+        userRepository.save(user);
+
+        return user.getUuid();
+    }
+    private User convertToUserEntity(UserDTO userDTO) {
+        return new User(userDTO);
     }
 }
