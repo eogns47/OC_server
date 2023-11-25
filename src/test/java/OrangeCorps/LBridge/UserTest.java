@@ -29,7 +29,7 @@ public class UserTest {
     void testUserLogin() {
 
         UserDTO userDTO = new UserDTO();
-        userDTO.setUserId("test22");
+        userDTO.setUuid("test22");
 
         User user = new User(userDTO);
 
@@ -59,9 +59,9 @@ public class UserTest {
     @DisplayName("couple이 잘 등록되는지 테스트")
     void testCoupleRegist(){
         UserDTO userDTO = new UserDTO();
-        userDTO.setUserId("test1");
+        userDTO.setUuid("test1");
         User user1 = new User(userDTO);
-        userDTO.setUserId("test2");
+        userDTO.setUuid("test2");
         User user2 = new User(userDTO);
 
         userRepository.save(user1);
@@ -71,14 +71,14 @@ public class UserTest {
 
 
 
-        assertEquals(userRepository.findByUserId("test1").get().getCoupleId(),user2.getUserId());
+        assertEquals(userRepository.findByUuid("test1").get().getCoupleId(),user2.getUuid());
     }
 
     @Test
     @DisplayName("coupleId가 존재하지 않을 때 등록되지 않는지 테스트")
     void testIsNotRegistWhenCoupleNotExist(){
         UserDTO userDTO = new UserDTO();
-        userDTO.setUserId("test1");
+        userDTO.setUuid("test1");
         User user1 = new User(userDTO);
 
         userRepository.save(user1);
