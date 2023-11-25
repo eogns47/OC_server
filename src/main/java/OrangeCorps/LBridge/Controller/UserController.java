@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import static OrangeCorps.LBridge.Config.Config.*;
@@ -19,27 +21,32 @@ import static OrangeCorps.LBridge.Config.Config.*;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/user")
 public class UserController {
 
     private final UserRepository userRepository;
     @Autowired
     private UserService userService;
 
-    @PostMapping("/user/login")
+    @PostMapping("/login")
     public ResponseEntity<String> userRegist(@RequestBody UserDTO userDTO) {
-        User user = convertToUserEntity(userDTO);
-        userRepository.save(user);
-        return ResponseEntity.ok(String.format(USER_SAVE_SUCCESS, user.getName()));
+        String userID = userService.saveUser(userDTO);
+        return ResponseEntity.ok("USER " + userID + " INSERT SUCCESSFULLY");
 
     }
 
-    @PostMapping("/user/couple")
-    public ResponseEntity<String> linkUserToCouple(@RequestParam String userId, @RequestParam String coupleId) {
-        return userService.linkCouple(userId, coupleId);
+    @PostMapping("/couple")
+    public ResponseEntity<String> linkUserToCouple(@RequestParam String uuid, @RequestParam String coupleId) {
+        userService.linkCouple(uuid, coupleId);
+        return ResponseEntity.ok(COUPLE_LINK_SUCCESS);
     }
 
-    private User convertToUserEntity(UserDTO userDTO) {
-        return new User(userDTO);
+    @GetMapping("/country")
+    public ResponseEntity<String> getUserCountry(@RequestParam String uuid){
+        String country= userService.findCountry(uuid);
+        return ResponseEntity.ok(country);
     }
+
+
 
 }

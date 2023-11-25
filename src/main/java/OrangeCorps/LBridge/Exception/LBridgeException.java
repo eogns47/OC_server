@@ -1,6 +1,7 @@
 package OrangeCorps.LBridge.Exception;
 
 
+import java.util.NoSuchElementException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,5 +16,14 @@ public class LBridgeException {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 
+    @ExceptionHandler
+    public ResponseEntity<String> ExceptionHandler(IllegalArgumentException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<String> ExceptionHandler(NoSuchElementException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
 
 }
