@@ -15,5 +15,5 @@ public class NewsDTO {
     private String url;
     private String headLine;
     private String summary;
-    private String published_date;
+    private String publishedDate;
 }

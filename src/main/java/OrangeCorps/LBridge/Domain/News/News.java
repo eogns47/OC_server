@@ -27,7 +27,7 @@ public class News {
     @Column(length=256)
     private String summary;
     @Column(length=128)
-    private String published_date;
+    private String publishedDate;
     @Column(length=128)
     private String country;
 

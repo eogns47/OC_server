@@ -38,7 +38,7 @@ public class GetNYTimesArticles implements GetArticles {
         return NewsDTO.builder()
                 .url(getArticleUrl())
                 .headLine(getArticleHeadLine())
-                .published_date(getArticlePubDate())
+                .publishedDate(getArticlePubDate())
                 .summary(getArticleSummary())
                 .build();
     }
