@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, String>{
 
     //값이 없을 경우 null 반환
-    Optional<User> findByUserId(String userId);
+    Optional<User> findByUuid(String uuid);
 }
 
