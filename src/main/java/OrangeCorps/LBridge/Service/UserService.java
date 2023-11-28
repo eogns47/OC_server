@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static OrangeCorps.LBridge.Config.Config.*;
 
@@ -23,46 +24,6 @@ public class UserService {
     @Autowired
     UserValidator userValidator;
 
-    public void linkCouple(String userId, String coupleId) {
-
-        List<User> users = findBothUser(userId, coupleId);
-
-        if(!userValidator.validateUserListLength(users,PAIR_OF_COUPLE))
-            throw new NullPointerException(NOT_FOUND_USER);
-
-        registCouple(userId,coupleId);
-        return;
-    }
-
-    public List<User> findBothUser(String userId, String coupleId) {
-        List<User> users = new ArrayList<>();
-        Optional<User> userById = userRepository.findById(userId);
-        Optional<User> userByCoupleId = userRepository.findById(coupleId);
-
-        if(userById.isPresent()){
-            users.add(userById.get());
-        }
-        else{
-            throw new IllegalArgumentException(NOT_FOUND_USER);
-        }
-
-        if(userByCoupleId.isPresent()){
-            users.add(userByCoupleId.get());
-        }
-        else{
-            throw new IllegalArgumentException(NOT_FOUND_COUPLE_USER);
-        }
-
-        return users;
-    }
-
-    public void registCouple(String userId,String coupleId){
-        Optional<User> optionalUser = userRepository.findById(userId);
-        User existingUser = optionalUser.get();
-        existingUser.updateCoupleId(coupleId);
-
-        userRepository.save(existingUser);
-    }
 
     public String findCountry(String uuid){
         Optional<User> optionalUser = userRepository.findByUuid(uuid);
@@ -86,5 +47,11 @@ public class UserService {
         Optional<String> coupleIdOptional = userRepository.findCoupleIdByUuid(userId);
 
         return coupleIdOptional.orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_COUPLE_USER));
+    }
+
+    public boolean coupleExist(String userId){
+        Optional<String> coupleIdOptional = userRepository.findCoupleIdByUuid(userId);
+
+        return coupleIdOptional.isPresent();
     }
 }
