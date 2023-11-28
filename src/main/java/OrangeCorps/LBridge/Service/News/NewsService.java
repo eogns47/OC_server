@@ -62,8 +62,25 @@ public class NewsService {
 
     public List<NewsDTO> getNewsesOfCouple(String country) {
         List<NewsDTO> newsDTOs = new ArrayList<>();
-        for (int idx = NEWS_START_INDEX; idx < NEWS_END_INDEX; idx++) {
-            newsDTOs.add(getNewsOfCouple(idx, country));
+        Thread newsThread = new Thread(() -> {
+            for (int idx = NEWS_START_INDEX; idx <= NEWS_END_INDEX; idx++) {
+                try {
+                    newsDTOs.add(getNewsOfCouple(idx, country));
+                    Thread.sleep(13000);  // 13초 지연
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        // 쓰레드 시작
+        newsThread.start();
+
+        try {
+            // 메인 쓰레드가 newsThread가 종료될 때까지 기다림
+            newsThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         return newsDTOs;
     }
