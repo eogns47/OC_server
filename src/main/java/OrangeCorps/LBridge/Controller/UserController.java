@@ -35,12 +35,6 @@ public class UserController {
 
     }
 
-    @PostMapping("/couple")
-    public ResponseEntity<String> linkUserToCouple(@RequestParam String uuid, @RequestParam String coupleId) {
-        userService.linkCouple(uuid, coupleId);
-        return ResponseEntity.ok(COUPLE_LINK_SUCCESS);
-    }
-
     @GetMapping("/country")
     public ResponseEntity<String> getUserCountry(@RequestParam String uuid){
         String country= userService.findCountry(uuid);
