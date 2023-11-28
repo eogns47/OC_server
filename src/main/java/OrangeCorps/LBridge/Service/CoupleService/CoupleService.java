@@ -1,4 +1,4 @@
-package OrangeCorps.LBridge.Service;
+package OrangeCorps.LBridge.Service.CoupleService;
 
 import OrangeCorps.LBridge.Domain.User.User;
 import OrangeCorps.LBridge.Domain.User.UserRepository;
