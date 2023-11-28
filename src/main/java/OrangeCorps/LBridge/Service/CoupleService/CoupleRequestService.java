@@ -43,7 +43,7 @@ public class CoupleRequestService {
 
         if(coupleRequestOptional.isEmpty()) return COUPLE_REQUEST_NOT_EXIST;
         else{
-            return COUPLE_REQUEST_EXIST + coupleRequestOptional.get().getUuid();
+            return coupleRequestOptional.get().getUuid();
         }
     }
 
