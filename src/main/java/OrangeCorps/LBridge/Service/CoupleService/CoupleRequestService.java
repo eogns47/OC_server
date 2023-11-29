@@ -20,6 +20,9 @@ public class CoupleRequestService {
     UserRepository userRepository;
 
     @Autowired
+    CoupleRegistService coupleRegistService;
+
+    @Autowired
     UserService userService;
 
     public String sendCoupleRequest(CoupleRequestDTO coupleRequestDTO){
@@ -35,7 +38,20 @@ public class CoupleRequestService {
                 .build();
 
         coupleRequestRepository.save(coupleRequest);
-        return COUPLE_REGISTRATION_REQUEST_SUCCESS;
+
+        return checkSendRequestEachOther(coupleRequestDTO);
+    }
+
+    public String checkSendRequestEachOther(CoupleRequestDTO coupleRequestDTO){
+        String userId = coupleRequestDTO.getUuid();
+        String coupleId=checkCoupleRequest(userId);
+
+        if(coupleId == coupleRequestDTO.getCoupleId()){
+            return coupleRegistService.registCouple(coupleRequestDTO);
+        }
+        else{
+            return COUPLE_REGISTRATION_REQUEST_SUCCESS;
+        }
     }
 
     public String checkCoupleRequest(String uuid){

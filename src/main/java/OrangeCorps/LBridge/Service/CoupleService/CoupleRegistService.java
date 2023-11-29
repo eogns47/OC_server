@@ -38,12 +38,11 @@ public class CoupleRegistService {
             return COUPLE_REQUEST_NOT_EXIST;
         }
 
-        registCouple(coupleRequestDTO);
-        return COUPLE_LINK_SUCCESS;
+        return registCouple(coupleRequestDTO);
     }
 
 
-    public void registCouple(CoupleRequestDTO coupleRequestDTO){
+    public String  registCouple(CoupleRequestDTO coupleRequestDTO){
         String userId = coupleRequestDTO.getUuid();
         String coupleId = coupleRequestDTO.getCoupleId();
 
@@ -57,10 +56,19 @@ public class CoupleRegistService {
 
         userRepository.save(existingUser);
         userRepository.save(existingCoupleUser);
+
+        removeRequest(coupleRequestDTO);
+
+        return COUPLE_LINK_SUCCESS;
     }
 
     public boolean validRequestExist(CoupleRequestDTO coupleRequestDTO){
         Optional<CoupleRequest> optionalCoupleRequest = coupleRequestRepository.findById(coupleRequestDTO.getUuid());
         return optionalCoupleRequest.isPresent();
+    }
+
+    public void removeRequest(CoupleRequestDTO coupleRequestDTO){
+        coupleRequestRepository.deleteById(coupleRequestDTO.getUuid());
+        coupleRequestRepository.deleteById(coupleRequestDTO.getCoupleId());
     }
 }
