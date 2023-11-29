@@ -37,8 +37,8 @@ public class ScheduledApiCaller {
         };
 
         // 일정 주기로 작업 예약
-        long initialDelay = 60; // 초기 지연 (0초)
-        long period = 24*60*60; // 주기 (초 단위, 여기서는 24시간)
+        long initialDelay = 5; // 초기 지연 (0초)
+        long period = 12*60*60; // 주기 (초 단위, 여기서는 24시간)
         scheduler.scheduleAtFixedRate(apiCallTask, initialDelay, period, TimeUnit.SECONDS);
     }
 
