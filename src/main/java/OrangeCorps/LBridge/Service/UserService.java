@@ -54,4 +54,10 @@ public class UserService {
 
         return coupleIdOptional.isPresent();
     }
+
+    public User myCouple(String userId){
+        String coupleId = getCoupleIdByUuid(userId);
+
+        return userRepository.findByUuid(coupleId).get();
+    }
 }
