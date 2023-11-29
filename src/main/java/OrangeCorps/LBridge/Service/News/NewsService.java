@@ -12,15 +12,19 @@ import OrangeCorps.LBridge.Service.CoupleService.CoupleService;
 import OrangeCorps.LBridge.Service.UserService;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import static OrangeCorps.LBridge.Config.Config.*;
 
 @Service
+@Slf4j
 public class NewsService {
 
     @Autowired
@@ -60,52 +64,47 @@ public class NewsService {
         return apiUrl + QUERY_IS + country + My_API_KEY_IS + apiKey;
     }
 
-    public List<NewsDTO> getNewsesOfCouple(String country) {
+    @Async
+    public CompletableFuture<List<NewsDTO>> getNewsesOfCouple(String country) {
         List<NewsDTO> newsDTOs = new ArrayList<>();
-        Thread newsThread = new Thread(() -> {
-            for (int idx = NEWS_START_INDEX; idx <= NEWS_END_INDEX; idx++) {
-                try {
-                    newsDTOs.add(getNewsOfCouple(idx, country));
-                    Thread.sleep(13000);  // 13초 지연
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        log.info("Start processing getNewsesOfCouple for country: {}", country);
+        for (int idx = NEWS_START_INDEX; idx <= NEWS_END_INDEX; idx++) {
+            try {
+                newsDTOs.add(getNewsOfCouple(idx, country));
+                Thread.sleep(13000);  // 13초 지연
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        });
-
-        // 쓰레드 시작
-        newsThread.start();
-
-        try {
-            // 메인 쓰레드가 newsThread가 종료될 때까지 기다림
-            newsThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
-        return newsDTOs;
+        log.info("Completed processing getNewsesOfCouple for country: {}", country);
+        return CompletableFuture.completedFuture(newsDTOs);
     }
 
     public void saveNews() {
-        List<NewsDTO> newsDTOs = new ArrayList<>();
 
         List<String> distinctCountries = getDistinctCountries();
 
         for(String country : distinctCountries) {
-            newsDTOs = getNewsesOfCouple(country);
+            CompletableFuture<List<NewsDTO>> futureNews = getNewsesOfCouple(country);
 
-            for (NewsDTO newsDTO : newsDTOs) {
+            futureNews.thenAccept(newsDTOs -> {
+                // 비동기 작업이 완료되면 실행되는 콜백 함수
 
-                // News 엔티티 생성 및 값 설정
-                News newsEntity = News.builder()
-                        .url(newsDTO.getUrl())
-                        .headLine(newsDTO.getHeadLine())
-                        .summary(newsDTO.getSummary())
-                        .publishedDate(newsDTO.getPublishedDate())
-                        .country(country)
-                        .build();
+                for (NewsDTO newsDTO : newsDTOs) {
 
-                newsRepository.save(newsEntity);
-            }
+                    // News 엔티티 생성 및 값 설정
+                    News newsEntity = News.builder()
+                            .url(newsDTO.getUrl())
+                            .headLine(newsDTO.getHeadLine())
+                            .summary(newsDTO.getSummary())
+                            .publishedDate(newsDTO.getPublishedDate())
+                            .country(country)
+                            .imgUrl(newsDTO.getImgUrl())
+                            .build();
+
+                    newsRepository.save(newsEntity);
+                }
+            });
         }
     }
 
