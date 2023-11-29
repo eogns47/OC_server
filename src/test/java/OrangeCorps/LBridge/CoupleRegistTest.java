@@ -53,4 +53,33 @@ public class CoupleRegistTest {
 
     }
 
+    @Test
+    @DisplayName("서로 요청 보낼 시 등록 되는지 테스트")
+    void testRequestEachOther(){
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUuid("test1");
+        User user = new User(userDTO);
+
+        userDTO.setUuid("test2");
+        User user2 = new User(userDTO);
+
+        userRepository.save(user);
+        userRepository.save(user2);
+
+
+        CoupleRequestDTO coupleRequestDTO = new CoupleRequestDTO(user.getUuid(),user2.getUuid());
+        CoupleRequestDTO coupleRequestDTO2 = new CoupleRequestDTO(user2.getUuid(),user.getUuid());
+
+
+        String result = coupleRequestService.sendCoupleRequest(coupleRequestDTO);
+        String result2 = coupleRequestService.sendCoupleRequest(coupleRequestDTO2);
+
+        assertEquals(COUPLE_REGISTRATION_REQUEST_SUCCESS, result);
+        assertEquals(COUPLE_LINK_SUCCESS, result2);
+
+
+        assertEquals(userRepository.findByUuid(user.getUuid()).get().getCoupleId(),user2.getUuid());
+
+    }
+
 }
