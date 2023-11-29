@@ -120,11 +120,29 @@ public class UserTest {
 
         coupleRegistService.registCouple(coupleRequestDTO);
 
-        System.out.println(user1.getUuid());
-        System.out.println(user1.getCoupleId());
+
         assertEquals(userService.getCoupleIdByUuid("test1"),user2.getUuid());
         assertEquals(userService.coupleExist("test1"),true);
         assertEquals(userService.coupleExist("test3"),false);
+    }
+
+    @Test
+    @DisplayName("내 커플 정보 API 테스트")
+    void testMyCoupleAPI(){
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUuid("test1");
+        User user1 = new User(userDTO);
+        userDTO.setUuid("test2");
+        User user2 = new User(userDTO);
+        userRepository.save(user1);
+        userRepository.save(user2);
+        CoupleRequestDTO coupleRequestDTO = new CoupleRequestDTO("test1","test2");
+
+
+        coupleRegistService.registCouple(coupleRequestDTO);
+
+
+        assertEquals(userService.myCouple(user1.getUuid()).getUuid(),user2.getUuid());
     }
 
 
