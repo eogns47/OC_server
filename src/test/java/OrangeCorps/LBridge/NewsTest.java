@@ -1,5 +1,6 @@
 package OrangeCorps.LBridge;
 
+import OrangeCorps.LBridge.Domain.News.NewsDTO;
 import OrangeCorps.LBridge.Service.News.NewsService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,5 +17,7 @@ public class NewsTest {
     @Test
     @DisplayName("API 정상 수신 테스트")
     void IsNewsAPISuccess(){
+        NewsDTO newsDTO =newsService.getNewsOfCouple(0,"korea");
+        System.out.println(newsDTO);
     }
 }
