@@ -11,5 +11,6 @@ public interface GetArticles {
     String getArticleSummary();
     String getArticleHeadLine();
     String getArticlePubDate();
+    String getArticleImgUrl();
 
 }

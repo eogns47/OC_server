@@ -30,6 +30,8 @@ public class News {
     private String publishedDate;
     @Column(length=128)
     private String country;
+    @Column(length = 512)
+    private String imgUrl;
 
 
 }

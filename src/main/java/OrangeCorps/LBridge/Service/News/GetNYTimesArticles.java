@@ -1,10 +1,14 @@
 package OrangeCorps.LBridge.Service.News;
 
 import OrangeCorps.LBridge.Domain.News.NewsApiResponseDTO;
+import OrangeCorps.LBridge.Domain.News.NewsApiResponseDTO.NewsApiResponseBody.Docs.Multimedia;
 import OrangeCorps.LBridge.Domain.News.NewsDTO;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import static OrangeCorps.LBridge.Config.Config.*;
 
 @Service
 public class GetNYTimesArticles implements GetArticles {
@@ -40,6 +44,7 @@ public class GetNYTimesArticles implements GetArticles {
                 .headLine(getArticleHeadLine())
                 .publishedDate(getArticlePubDate())
                 .summary(getArticleSummary())
+                .imgUrl(getArticleImgUrl())
                 .build();
     }
 
@@ -62,5 +67,17 @@ public class GetNYTimesArticles implements GetArticles {
     @Override
     public String getArticleSummary() {
         return newsApiResponseDTO.getResponse().getDocs().get(idx).getSummary();
+    }
+
+    @Override
+    public String getArticleImgUrl() {
+        List<Multimedia> multimediaList = newsApiResponseDTO.getResponse().getDocs().get(idx).getMultimediaList();
+
+        if (multimediaList != null && !multimediaList.isEmpty()) {
+            return NEWS_IMAGE_BASE_URL + multimediaList.get(0).getImgUrl();
+        } else {
+            return null;
+        }
+
     }
 }

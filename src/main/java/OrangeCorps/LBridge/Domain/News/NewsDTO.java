@@ -16,4 +16,15 @@ public class NewsDTO {
     private String headLine;
     private String summary;
     private String publishedDate;
+    private String imgUrl;
+
+    @Override
+    public String toString() {
+        return "\nNewsDTO\n{" +
+                "\ntitle='" + headLine + '\'' +
+                "\n, summary='" + summary + '\'' +
+                "\n, publishedDate'" + publishedDate + '\''+
+                "\n, imgUrl'"+imgUrl+'\''+
+                "\n}";
+    }
 }

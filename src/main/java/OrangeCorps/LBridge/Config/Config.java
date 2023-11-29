@@ -28,7 +28,8 @@ public class Config {
     public final static String MY_REQUEST_DECLINED = "Request Declined";
 
 
-
+    //news
+    public final static String NEWS_IMAGE_BASE_URL = "https://static01.nyt.com/";
 
     //static
 

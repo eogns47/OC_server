@@ -26,18 +26,27 @@ public class NewsApiResponseDTO {
             @JsonProperty("headline")
             private Headline headline;
 
+
             @JsonProperty("abstract")
             private String summary;
 
             @JsonProperty("pub_date")
             private String pubDate;
 
+            @JsonProperty("multimedia")
+            private List<Multimedia> multimediaList;
             @Getter
             public static class Headline {
 
                 @JsonProperty("main")
                 private String main;
 
+            }
+
+            @Getter
+            public static class Multimedia {
+                @JsonProperty("url")
+                private String imgUrl;
             }
         }
     }
