@@ -45,8 +45,8 @@ public class CoupleRequestService {
     public String checkSendRequestEachOther(CoupleRequestDTO coupleRequestDTO){
         String userId = coupleRequestDTO.getUuid();
         String coupleId=checkCoupleRequest(userId);
-
-        if(coupleId == coupleRequestDTO.getCoupleId()){
+        System.out.println(coupleId+","+coupleRequestDTO.getCoupleId());
+        if(coupleId.equals(coupleRequestDTO.getCoupleId())){
             return coupleRegistService.registCouple(coupleRequestDTO);
         }
         else{
