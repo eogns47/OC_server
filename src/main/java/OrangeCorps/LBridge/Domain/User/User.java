@@ -28,9 +28,6 @@ public class User {
     @Column(length=128)
     private String country;
 
-    @Column(length=32)
-    private String tel;
-
     @Column
     private LocalDate birth;
 
@@ -41,7 +38,6 @@ public class User {
         uuid = userDTO.getUuid();
         name = userDTO.getName();
         country = userDTO.getCountry();
-        tel = userDTO.getTel();
         birth = userDTO.getBirth();
         coupleId = userDTO.getCoupleId();
     }

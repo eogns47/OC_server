@@ -12,7 +12,6 @@ public class UserDTO {
     private String uuid;
     private String name;
     private String country;
-    private String tel;
     private LocalDate birth;
     private String coupleId;
 }
